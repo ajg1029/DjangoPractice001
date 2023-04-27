@@ -7,5 +7,5 @@ urlpatterns = [
     path('index/', views.index),
     path('greeting/', views.greeting),
     path('introduce/', views.intro),
-    
+    path('dinner/', views.dinner),
 ]

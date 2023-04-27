@@ -1,0 +1,25 @@
+<p>foods : {{ foods | join:', ' }}</p>
+<p>pick : {{ pick }}</p>
+<p>'{{ pick }}' 몇 글자? --> {{ pick | length }}</p>
+<hr>
+<p>메뉴판이염</p>
+<ul>
+    {% for food in foods %}
+    <li>{{ food }}</li>
+    {% endfor %}
+</ul>
+
+{% comment %}
+<p>foods : {{ foods | join:', ' }}</p>
+<p>pick : {{ pick }}</p>
+<p>'{{ pick }}' 몇 글자? --> {{ pick | length }}</p>
+<hr>
+<p>메뉴판이염</p>
+<ul>
+    {% for food in foods %}
+    <li>{{ food }}</li>
+    {% endfor %}
+</ul>
+{% endcomment %}
+
+{# 주석 이렇게도 됨 #}
