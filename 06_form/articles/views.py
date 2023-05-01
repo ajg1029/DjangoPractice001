@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Article
+from .forms import ArticleForm
 
 # Create your views here.
 def index(request):
@@ -20,17 +21,30 @@ def index(request):
 
 
 def new(request):
-    return render(request, 'articles/new.html')
+    form = ArticleForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'articles/new.html', context)
 
 
 def create(request):
-    title = request.POST.get('title')
-    content = request.POST.get('content')
+    # title = request.POST.get('title')
+    # content = request.POST.get('content')
 
-    article = Article(title=title, content=content)
-    article.save()
+    # article = Article(title=title, content=content)
+    # article.save()
+    
+    form = ArticleForm(request.POST)
+    # 유효성 검사
+    if form.is_valid():
+        article = form.save()
+        return redirect('articles:detail', article.pk)
+    return redirect('articles:new')
 
-    return redirect('articles:detail', article.pk)
+# article.save() --> DB에 저장
+# form.save() --> 객체를 만들고 DB에 저장. 객체를 만듦 = 반환값이 있음
+# 그 반환값을 article 에 저장해서 템플릿으로 넘겨줌
 
 
 def detail(request, pk):
