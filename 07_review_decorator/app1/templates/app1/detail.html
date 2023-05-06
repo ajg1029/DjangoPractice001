@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>번호 : {{ article.pk }}</p>
+<p>작성 : {{ article.created_at }}</p>
+<p>수정 : {{ article.updated_at }}</p>
+<p>제목 : {{ article.title }}</p>
+<p>내용 : {{ article.content }}</p>
+<hr>
+<a href="{% url 'app1:index' %}">app1</a>
+<br>
+<form action="{% url 'app1:delete' article.pk %}" method="POST">
+    {% csrf_token %}
+    <button>삭제</button>
+</form>
+
+<a href="{% url 'app1:update' article.pk %}">update</a>
+
+{% endblock content %}
+

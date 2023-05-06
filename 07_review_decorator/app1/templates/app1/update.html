@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>update</h3>
+
+<form action="{% url 'app1:update' article.pk %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit'>
+</form>
+
+<a href="{% url 'app1:detail' article.pk %}">back</a>
+
+{% endblock content %}

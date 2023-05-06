@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article
 from .forms import ArticleForm
 
@@ -20,35 +20,52 @@ def index(request):
     return render(request, 'articles/index.html', context)
 
 
-def new(request):
-    form = ArticleForm()
+# def new(request):
+#     form = ArticleForm()
+#     context = {
+#         'form': form,
+#     }
+#     return render(request, 'articles/new.html', context)
+
+
+# def create(request):
+#     # title = request.POST.get('title')
+#     # content = request.POST.get('content')
+
+#     # article = Article(title=title, content=content)
+#     # article.save()
+    
+#     form = ArticleForm(request.POST)
+#     # 유효성 검사
+#     if form.is_valid():
+#         article = form.save()
+#         return redirect('articles:detail', article.pk)
+#     return redirect('articles:new')
+
+# # article.save() --> DB에 저장
+# # form.save() --> 객체를 만들고 DB에 저장. 객체를 만듦 = 반환값이 있음
+# # 그 반환값을 article 에 저장해서 템플릿으로 넘겨줌
+
+def create(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            article = form.save()
+            return redirect('articles:detail', article.pk)
+    else:
+        form = ArticleForm()
     context = {
         'form': form,
     }
     return render(request, 'articles/new.html', context)
+        
 
 
-def create(request):
-    # title = request.POST.get('title')
-    # content = request.POST.get('content')
-
-    # article = Article(title=title, content=content)
-    # article.save()
-    
-    form = ArticleForm(request.POST)
-    # 유효성 검사
-    if form.is_valid():
-        article = form.save()
-        return redirect('articles:detail', article.pk)
-    return redirect('articles:new')
-
-# article.save() --> DB에 저장
-# form.save() --> 객체를 만들고 DB에 저장. 객체를 만듦 = 반환값이 있음
-# 그 반환값을 article 에 저장해서 템플릿으로 넘겨줌
 
 
 def detail(request, pk):
-    article = Article.objects.get(pk=pk)
+    # article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=pk)
     context = {
         'article': article,
     }

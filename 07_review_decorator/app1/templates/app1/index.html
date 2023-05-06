@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>app1</h3>
+<a href="{% url 'app1:create' %}">[create]</a>
+<br>
+{% for article in articles %}
+<a href="{% url 'app1:detail' article.pk %}">
+    <p>{{ article.pk }}. {{ article.title }}</p>
+</a>
+{% endfor %}
+
+{% endblock content %}
