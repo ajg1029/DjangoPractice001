@@ -24,4 +24,14 @@
     <input type="submit" value="DELETE">
   </form>
   <a href="{% url 'articles:index' %}">[back]</a>
+
+
+  {% if article.image %}
+  <img src="{{ article.image.url }}" alt="{{ article.image }}">
+  {% else %}
+  <br><br><br>
+  <p>static file 로 대체이미지 출력</p>
+  <img src="" alt="default">
+  {% endif %}
+
 {% endblock content %}
